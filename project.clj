@@ -15,7 +15,7 @@
                  [district0x/cljs-solidity-sha3 "1.0.0"]
                  [district0x/district-cljs-utils "1.0.3"]
                  [district0x/district-encryption "1.0.0"]
-                 [district0x/district-format "1.0.2"]
+                 [district0x/district-format "1.0.3"]
                  [district0x/district-graphql-utils "1.0.5"]
                  [district0x/district-server-db "1.0.2"]
                  [district0x/district-server-graphql "1.0.15"]
@@ -50,7 +50,7 @@
                  [re-frame "0.10.5"]
                  [garden "1.3.5"]]
 
-  :exclusions [express-graphql]
+  :exclusions [express-graphql cljsjs/react-with-addons]
 
   :plugins [[lein-auto "0.1.2"]
             [lein-cljsbuild "1.1.7"]

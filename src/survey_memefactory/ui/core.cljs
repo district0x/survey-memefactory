@@ -8,19 +8,22 @@
     [district.ui.reagent-render]
     [district.ui.router-google-analytics]
     [district.ui.router]
-    [district.ui.server-config]
     [district.ui.smart-contracts]
     [district.ui.web3-account-balances]
     [district.ui.web3-accounts]
     [district.ui.web3-balances]
     [district.ui.web3-sync-now]
+    [district.ui.web3-tx-id]
     [district.ui.web3]
+    [survey-memefactory.ui.home.events]
+    [district.ui.web3-tx]
     [survey-memefactory.shared.graphql-schema :refer [graphql-schema]]
     [survey-memefactory.shared.routes :refer [routes]]
     [survey-memefactory.shared.smart-contracts :refer [smart-contracts]]
     [survey-memefactory.ui.home.page]
     [mount.core :as mount]
-    [print.foo :include-macros true]))
+    [print.foo :include-macros true]
+    [re-frame.core :refer [dispatch]]))
 
 (def debug? ^boolean js/goog.DEBUG)
 
@@ -28,14 +31,13 @@
   (when debug?
     (enable-console-print!)))
 
-(def skipped-contracts [:ds-guard :param-change-registry-db :meme-registry-db :minime-token-factory])
 
 (defn ^:export init []
   (s/check-asserts debug?)
   (dev-setup)
   (-> (mount/with-args
         (merge {:web3 {:url "http://localhost:8549"}
-                :smart-contracts {:contracts (apply dissoc smart-contracts skipped-contracts)}
+                :smart-contracts {:contracts smart-contracts}
                 :reagent-render {:id "app"
                                  :component-var #'router}
                 :router {:routes routes
@@ -43,4 +45,5 @@
                 :router-google-analytics {:enabled? (not debug?)}
                 :graphql {:schema graphql-schema
                           :url "http://localhost:6901/graphql"}}))
-      (mount/start)))
+      (mount/start))
+  (dispatch [:init]))

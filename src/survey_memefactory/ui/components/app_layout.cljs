@@ -1,19 +1,21 @@
 (ns survey-memefactory.ui.components.app-layout
   (:require
-   [reagent.core :as r]
-   [district.ui.component.active-account :refer [active-account]]
-   [district.ui.component.active-account-balance :refer [active-account-balance]]
-   [re-frame.core :refer [subscribe dispatch]]))
+    [reagent.core :as r]
+    [district.ui.component.active-account :refer [active-account]]
+    [district.ui.component.active-account-balance :refer [active-account-balance]]
+    [district.ui.web3-accounts.subs :as accounts-subs]
+    [re-frame.core :refer [subscribe dispatch]]))
 
 
 (defn app-bar []
-  (let [my-addresses (r/atom nil);;(subscribe [:district0x/my-addresses])
-        ]
+  (let [active-acc (subscribe [::accounts-subs/active-account])]
     (fn []
       [:div.app-bar
        [:div.logo]
        [:div.account-section
-        [active-account]]])))
+        (if @active-acc
+          [active-account]
+          [:div.no-account "No Account Connected"])]])))
 
 
 (defn app-layout []

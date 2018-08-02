@@ -25,6 +25,7 @@
     :width "50%"
     :font-size (px 15)
     :line-height (px 22)}
+   [:button:focus {:outline 0}]
    (for-media-max :wide
                   [:&
                    {:width "55%"}])
@@ -57,6 +58,47 @@
     {:margin-top (em 2)}]
    [:.survey
     {:margin-top (em 2)}
-    [:.title {:font-weight :bold}]]]
+    [:.title {:font-weight :bold}]
+    [:.options {:margin-top (px 20)}]
+    [:.option]
+    [:.option-row
+     {:display :flex
+      :justify-content :space-between}]
+    [:button.vote
+     (font :bungee)
+     {:border-radius "1em"
+      :cursor :pointer
+      :padding-bottom (px 4)
+      :padding-top (px 4)
+      :padding-left (px 15)
+      :padding-right (px 15)
+      :font-size (px 14)
+      :display "block"
+      :right 0
+      :left 0
+      :border-style "none"
+      :color (color :white)
+      :background-color (color :meme-buy-button)}
+     [:&.disabled
+      {:background-color (color :meme-buy-button-disabled)}]]
+    [:.votes-bar-body
+     [:.bar
+      {:width "100%"
+       :height (px 10)
+       :border-radius "1em"
+       :background-color (color :light-grey)
+       :margin-top (px 15)
+       :position :relative}
+      [:.bar-index
+       {:position :absolute
+        :background-color (color :section-caption)
+        :height (px 10)
+        :width "0%"
+        :transition "width 1s ease-in-out"
+        :border-radius "1em"}]]
+     [:.percentage
+      {:text-align :center
+       :width "100%"
+       :font-size (px 14)}]]]]
 
   )

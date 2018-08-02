@@ -9,7 +9,44 @@
     [re-frame.core :refer [subscribe dispatch]]
     [reagent.core :as r]
     [survey-memefactory.shared.surveys :refer [surveys]]
-    [survey-memefactory.ui.components.app-layout :refer [app-layout]]))
+    [district.ui.web3-tx-id.subs :as tx-id-subs]
+    [survey-memefactory.ui.components.app-layout :refer [app-layout]]
+    [cljs-time.core :as t]
+    [print.foo :include-macros true]))
+
+(defn options [{:keys [:survey/options :survey/end-date :survey/address] :as args}]
+  [:div.options
+   (doall
+     (for [{:keys [:option/id :option/text :option/image :option/total-votes :option/voter-voted?]} options]
+       (let [percentage (format/format-percentage total-votes (:survey/total-votes args))
+             pending? @(subscribe [::tx-id-subs/tx-pending? {:survey/address address :option/id id}])]
+         [:div.option
+          {:key (str address id)}
+          [:div.option-row
+           (if text
+             [:div.option.text id ". " text]
+             [:div.option.image image])
+           (if (t/after? end-date (t/now))
+             [:button.vote
+              {:on-click (fn []
+                           (when address
+                             (dispatch [:vote {:option/id id :survey/address address}])))
+               :class (when (or (not address)
+                                pending?
+                                voter-voted?
+                                (not @(subscribe [::accounts-subs/active-account])))
+                        "disabled")}
+              (cond
+                pending? "Voting..."
+                voter-voted? "Voted"
+                :else "Vote")])]
+          [:div.votes-bar-body
+           [:div.bar [:span.bar-index
+                      {:style {:width percentage}}]]
+           [:div.percentage
+            (format/format-number (web3/from-wei total-votes :ether))
+            " (" percentage ")"]]])))])
+
 
 (defn survey [{:keys [:survey/title :key :survey/total-votes :survey/voter-votes] :as args}]
   [:div.survey
@@ -25,17 +62,15 @@
     [:span.label "You Voted: "]
     (format/format-token (web3/from-wei voter-votes :ether)
                          {:token "DNT"})
-    " (" (format/format-percentage total-votes voter-votes) ")"]
+    " (" (format/format-percentage voter-votes total-votes) ")"]
    [:div.survey-address
     [:span.label "Contract Address: "
-     (if (:survey/address args)
+     (if (:survey/addressr args)
        [:a {:href (str "https://etherscan.io/address/" (:survey/address args))
             :target :_blank}
         (:survey/address args)]
        "Not deployed yet")]]
-   (when (:survey/url args)
-     [:a {:href (:survey/url args) :target :_blank}
-      "Aragon URL"])])
+   [options args]])
 
 
 (defn calculate-total [surveys key]
@@ -45,10 +80,11 @@
               (print.foo/look surveys))
     (web3/from-wei :ether)))
 
+
 (defn total-stats [{:keys [:surveys]}]
   (let [total-votes (calculate-total surveys :survey/total-votes)
         voter-votes (calculate-total surveys :survey/voter-votes)
-        percentage (format/format-percentage total-votes voter-votes)]
+        percentage (format/format-percentage voter-votes total-votes)]
     [:div.total-stats
      [:div "Total Votes: " (format/format-token total-votes {:token "DNT"})]
      [:div "You Voted: " (format/format-token voter-votes {:token "DNT"})]
@@ -61,11 +97,17 @@
 (defmethod page :route/home []
   (let [active-account (subscribe [::accounts-subs/active-account])]
     (fn []
-      (let [query (print.foo/look @(subscribe [::gql/query
-                                               {:queries [[:surveys
-                                                           [:survey/address
-                                                            :survey/total-votes
-                                                            [:survey/voter-votes {:voter (or @active-account "")}]]]]}]))]
+      (let [query @(subscribe [::gql/query
+                               {:queries [[:surveys
+                                           [:survey/address
+                                            :survey/total-votes
+                                            [:survey/voter-votes {:voter @active-account}]
+                                            [:survey/options [:option/id
+                                                              :option/text
+                                                              :option/total-votes
+                                                              [:option/voter-voted?
+                                                               {:voter @active-account}]]]]]]}
+                               {:refetch-on #{:vote-success :auto-refresh}}])]
         [app-layout
          {:meta {:title "survey-memefactory"
                  :description "Description"}}

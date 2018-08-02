@@ -10,7 +10,17 @@
 
   type Survey {
     survey_address: String
-    survey_voterVotes(voter: String!): Float
+    survey_voterVotes(voter: String): Float
     survey_totalVotes: Float
+    survey_options: [Option]
+  }
+
+  type Option {
+    option_id: Int
+    option_survey: String
+    option_text: String
+    option_image: String
+    option_totalVotes: Float
+    option_voterVoted_(voter: String): Boolean
   }
 ")

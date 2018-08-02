@@ -41,19 +41,22 @@
       }]
     ]
    [:.account-section
-    {:align-items :right
-     :width (px 250)
+    {:width (px 250)
      :padding "0 10px"}
-    [:.active-account
-     {:text-overflow :ellipsis
-      :overflow :hidden}]
+    [:.single-account
+     {:display :block
+      :overflow :hidden
+      :text-overflow :ellipsis}]
+    [:.no-account
+     {:text-align :right
+      :width "100%"}]
     [:.active-account-select
      [:i.dropdown.icon:before
       {:content "url('/assets/icons/dropdown.png')" ;;No, we can't just bg scale, thanks upstream !important
        :display :inline-flex
        :transform "scale(.5)"
        }]]
-    [:.active-address-select
+    [:.active-account-select
      [:.item
       {:white-space :nowrap
        :overflow :hidden

@@ -16,6 +16,7 @@
                     :meme-bg "rgba(73,35,86,.85)"
                     :meme-bg-bottom "#9d0adb"
                     :meme-buy-button "rgba(73,35,86,1)"
+                    :meme-buy-button-disabled "rgba(73,35,86,0.4)"
                     :meme-buy-button-text "white"
                     :meme-info-text "white"
                     :meme-tile-footer "#47608e"
@@ -24,7 +25,7 @@
                     :random-meme-icon-bg "#ffcc00"
                     :violet "#2e1f37"
                     :light-violet "rgba(116,100,126,.15)"
-                    :light-grey "rgba(255,255,255,.7)" })
+                    :light-grey "rgba(239,239,239,.7)" })
 
 (defn color [name]
   (get names->colors name name))

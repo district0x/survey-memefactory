@@ -11,34 +11,62 @@
     [honeysql.helpers :as sqlh]
     [print.foo :refer [look] :include-macros true]
     [survey-memefactory.server.db :as meme-db]
-    [survey-memefactory.shared.surveys :refer [surveys]]
+    [survey-memefactory.shared.surveys :refer [surveys surveys-map]]
     [taoensso.timbre :as log]))
 
 
 (defn surveys-resolver []
-  surveys)
+  (->> surveys
+    (filter :survey/address)))
 
 
 (defn survey-total-votes [{:keys [:survey/address]}]
-  (if (web3-core/address? address)
-    (second (first (db/get {:select [(sql/call :sum :vote/stake)]
-                            :from [:votes]
-                            :where [:= :vote/survey (str/lower-case address)]})))
-    0))
+  (second (first (db/get {:select [(sql/call :sum :vote/stake)]
+                          :from [:votes]
+                          :where [:= :vote/survey (str/lower-case address)]}))))
 
 
 (defn survey-voter-votes [{:keys [:survey/address]} {:keys [:voter]}]
-  (if (and (web3-core/address? voter)
-           (web3-core/address? address))
+  (if (web3-core/address? voter)
     (second (first (db/get {:select [(sql/call :sum :vote/stake)]
                             :from [:votes]
                             :where [:and
-                                    [:= :vote/survey (str/lower-case (print.foo/look address))]
-                                    [:= :vote/voter (str/lower-case (print.foo/look voter))]]})))
+                                    [:= :vote/survey (str/lower-case address)]
+                                    [:= :vote/voter (str/lower-case voter)]]})))
     0))
+
+
+(defn survey-options [{:keys [:survey/address]} {:keys [:voter]}]
+  (if (web3-core/address? address)
+    (->> (get-in surveys-map [address :survey/options])
+      (map (fn [{:keys [:option/id] :as option}]
+             (merge
+               option
+               {:option/survey address
+                :option/total-votes
+                (or (second (first (db/get {:select [(sql/call :sum :vote/stake)]
+                                            :from [:votes]
+                                            :where [:and
+                                                    [:= :vote/survey (str/lower-case address)]
+                                                    [:= :vote/option id]]})))
+                    0)}))))
+    []))
+
+
+(defn option-voter-voted? [{:keys [:option/survey :option/id]} {:keys [:voter]}]
+  (let [voter (str/lower-case voter)]
+    (boolean (and (web3-core/address? voter)
+                  (seq (db/get {:select [:vote/option]
+                                :from [:votes]
+                                :where [:and
+                                        [:= :vote/survey (str/lower-case survey)]
+                                        [:= :vote/option id]
+                                        [:= :vote/voter voter]]}))))))
 
 
 (def resolvers-map
   {:Query {:surveys surveys-resolver}
    :Survey {:survey/total-votes survey-total-votes
-            :survey/voter-votes survey-voter-votes}})
+            :survey/voter-votes survey-voter-votes
+            :survey/options survey-options}
+   :Option {:option/voter-voted? option-voter-voted?}})

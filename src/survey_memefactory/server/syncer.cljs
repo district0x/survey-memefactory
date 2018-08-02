@@ -46,7 +46,7 @@
         (map (fn [survey-addr]
                (survey/cast-vote-event [:survey survey-addr]
                                        {}
-                                       {:from-block 0 :to-block "latest"}
+                                       "latest"
                                        cast-vote-event))
              surveys)
         (map (fn [survey-addr]

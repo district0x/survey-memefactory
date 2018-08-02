@@ -44,6 +44,8 @@
                          :default-route :route/home}
                 :router-google-analytics {:enabled? (not debug?)}
                 :graphql {:schema graphql-schema
-                          :url "http://localhost:6901/graphql"}}))
+                          :url (if debug?
+                                 "http://localhost:6901/graphql"
+                                 "https://api.survey.memefactory.io")}}))
       (mount/start))
   (dispatch [:init]))

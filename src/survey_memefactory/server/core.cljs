@@ -5,6 +5,7 @@
     [district.server.logging]
     [district.server.middleware.logging :refer [logging-middlewares]]
     [district.server.web3-watcher]
+    [district.server.graphql]
     [survey-memefactory.server.syncer]
     [survey-memefactory.server.db]
     [survey-memefactory.shared.smart-contracts]

@@ -77,7 +77,7 @@
   (-> (reduce (fn [acc item]
                 (+ acc (or (get item key) 0)))
               0
-              (print.foo/look surveys))
+              surveys)
     (web3/from-wei :ether)))
 
 

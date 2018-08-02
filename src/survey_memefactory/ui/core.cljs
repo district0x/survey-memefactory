@@ -36,7 +36,9 @@
   (s/check-asserts debug?)
   (dev-setup)
   (-> (mount/with-args
-        (merge {:web3 {:url "http://localhost:8549"}
+        (merge {:web3 {:url (if debug?
+                              "http://localhost:8549"
+                              "https://mainnet.infura.io")}
                 :smart-contracts {:contracts smart-contracts}
                 :reagent-render {:id "app"
                                  :component-var #'router}

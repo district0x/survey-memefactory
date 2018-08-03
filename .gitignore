@@ -15,7 +15,6 @@ pom.xml.asc
 /figwheel_server.log
 /survey-survey-memefactory.iml
 /.node-xmlhttprequest-sync-*
-/resources/public/css/
 /resources/semantic/dist/
 /resources/public/contracts/build/*.bin
 /npm-debug.log

@@ -48,6 +48,6 @@
                 :graphql {:schema graphql-schema
                           :url (if debug?
                                  "http://localhost:6901/graphql"
-                                 "https://api.survey.memefactory.io")}}))
+                                 "https://api.survey.memefactory.io/graphql")}}))
       (mount/start))
   (dispatch [:init]))

@@ -15,6 +15,10 @@
     [taoensso.timbre :as log]))
 
 
+(defn- lowercase [s]
+  (str/lower-case (or s "")))
+
+
 (defn surveys-resolver []
   (->> surveys
     (filter :survey/address)))
@@ -23,7 +27,7 @@
 (defn survey-total-votes [{:keys [:survey/address]}]
   (second (first (db/get {:select [(sql/call :sum :vote/stake)]
                           :from [:votes]
-                          :where [:= :vote/survey (str/lower-case address)]}))))
+                          :where [:= :vote/survey (lowercase address)]}))))
 
 
 (defn survey-voter-votes [{:keys [:survey/address]} {:keys [:voter]}]
@@ -31,8 +35,8 @@
     (second (first (db/get {:select [(sql/call :sum :vote/stake)]
                             :from [:votes]
                             :where [:and
-                                    [:= :vote/survey (str/lower-case address)]
-                                    [:= :vote/voter (str/lower-case voter)]]})))
+                                    [:= :vote/survey (lowercase address)]
+                                    [:= :vote/voter (lowercase voter)]]})))
     0))
 
 
@@ -47,21 +51,20 @@
                 (or (second (first (db/get {:select [(sql/call :sum :vote/stake)]
                                             :from [:votes]
                                             :where [:and
-                                                    [:= :vote/survey (str/lower-case address)]
+                                                    [:= :vote/survey (lowercase address)]
                                                     [:= :vote/option id]]})))
                     0)}))))
     []))
 
 
 (defn option-voter-voted? [{:keys [:option/survey :option/id]} {:keys [:voter]}]
-  (let [voter (str/lower-case voter)]
-    (boolean (and (web3-core/address? voter)
-                  (seq (db/get {:select [:vote/option]
-                                :from [:votes]
-                                :where [:and
-                                        [:= :vote/survey (str/lower-case survey)]
-                                        [:= :vote/option id]
-                                        [:= :vote/voter voter]]}))))))
+  (boolean (and (web3-core/address? voter)
+                (seq (db/get {:select [:vote/option]
+                              :from [:votes]
+                              :where [:and
+                                      [:= :vote/survey (lowercase survey)]
+                                      [:= :vote/option id]
+                                      [:= :vote/voter (lowercase voter)]]})))))
 
 
 (def resolvers-map

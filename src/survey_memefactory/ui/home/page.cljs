@@ -65,7 +65,7 @@
     " (" (format/format-percentage voter-votes total-votes) ")"]
    [:div.survey-address
     [:span.label "Contract Address: "
-     (if (:survey/addressr args)
+     (if (:survey/address args)
        [:a {:href (str "https://etherscan.io/address/" (:survey/address args))
             :target :_blank}
         (:survey/address args)]

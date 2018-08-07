@@ -54,6 +54,8 @@
      :margin-top (em 0.3)
      :margin-bottom (em 1)
      :text-align :center}]
+   [:.description
+    {:margin-bottom (px 15)}]
    [:.total-stats
     {:margin-top (em 2)}]
    [:.survey

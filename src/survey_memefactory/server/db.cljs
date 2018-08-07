@@ -20,6 +20,7 @@
 (def votes-columns
   [[:vote/voter :unsigned :integer not-nil]
    [:vote/survey address not-nil]
+   [:vote/survey-id :unsigned :integer not-nil]
    [:vote/option :unsigned :integer not-nil]
    [:vote/stake :unsigned :BIG :INT not-nil]
    [(sql/call :primary-key :vote/voter :vote/survey :vote/option)]])

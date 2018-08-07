@@ -24,14 +24,17 @@
 (reg-event-fx
   :vote
   [interceptors]
-  (fn [{:keys [:db]} [{:keys [:option/id :survey/address]}]]
+  (fn [{:keys [:db]} [{:keys [:survey/address] :as args}]]
     (let [active-account (account-queries/active-account db)]
       {:dispatch [::tx-events/send-tx {:instance (contract-queries/instance db :survey address)
                                        :fn :vote-option
-                                       :args [0 id]
+                                       :args [(:survey/id args)
+                                              (:option/id args)]
                                        :tx-opts {:from active-account
                                                  :gas 200000}
-                                       :tx-id {:survey/address address :option/id id}
+                                       :tx-id {:survey/address address
+                                               :survey/id (:survey/id args)
+                                               :option/id (:option/id args)}
                                        :on-tx-hash [:vote-tx-hash]
                                        :on-tx-success [:vote-success]
                                        :on-tx-error [:vote-error]}]})))

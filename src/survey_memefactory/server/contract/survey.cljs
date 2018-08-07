@@ -7,13 +7,16 @@
     [district.server.smart-contracts :refer [contract-call instance contract-address]]))
 
 (defn get-survey [contract-addr survey-id]
-  (contract-call [:survey contract-addr] :survey-id))
+  (contract-call [:survey contract-addr] survey-id))
 
-(defn cast-vote-event [contract-key & args]
-  (apply contract-call contract-key :CastVote args))
+(defn cast-vote-event [contract-addr & args]
+  (apply contract-call [:survey contract-addr] :CastVote args))
 
-(defn reset-vote-event [contract-key & args]
-  (apply contract-call contract-key :ResetVote args))
+(defn reset-vote-event [contract-addr & args]
+  (apply contract-call [:survey contract-addr] :ResetVote args))
+
+(defn start-survey-event [contract-addr & args]
+  (apply contract-call [:survey contract-addr] :StartSurvey args))
 
 
 

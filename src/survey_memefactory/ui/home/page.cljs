@@ -19,9 +19,11 @@
    (doall
      (for [{:keys [:option/id :option/text :option/image :option/total-votes :option/voter-voted?]} options]
        (let [percentage (format/format-percentage total-votes (:survey/total-votes args))
-             pending? @(subscribe [::tx-id-subs/tx-pending? {:survey/address address :option/id id}])]
+             pending? @(subscribe [::tx-id-subs/tx-pending? {:survey/address address
+                                                             :survey/id (:survey/id args)
+                                                             :option/id id}])]
          [:div.option
-          {:key (str address id)}
+          {:key (str address (:survey/id args) id)}
           [:div.option-row
            (if text
              [:div.option.text id ". " text]
@@ -30,7 +32,9 @@
              [:button.vote
               {:on-click (fn []
                            (when address
-                             (dispatch [:vote {:option/id id :survey/address address}])))
+                             (dispatch [:vote {:option/id id
+                                               :survey/id (:survey/id args)
+                                               :survey/address address}])))
                :class (when (or (not address)
                                 pending?
                                 voter-voted?
@@ -48,12 +52,16 @@
             " (" percentage ")"]]])))])
 
 
-(defn survey [{:keys [:survey/title :key :survey/total-votes :survey/voter-votes] :as args}]
+(defn survey [{:keys [:survey/title :survey/description :key :survey/total-votes :survey/voter-votes] :as args}]
   [:div.survey
    [:div.title key ". " title]
+   [:div.description description]
    [:div.total-votes
     [:span.label "Start Date: "]
     (format/format-date (:survey/start-date args))]
+   [:div.total-votes
+    [:span.label "End Date: "]
+    (format/format-date (:survey/end-date args))]
    [:div.total-votes
     [:span.label "Total Votes: "]
     (format/format-token (web3/from-wei total-votes :ether)
@@ -70,7 +78,8 @@
             :target :_blank}
         (:survey/address args)]
        "Not deployed yet")]]
-   [options args]])
+   (when (:survey/address args)
+     [options args])])
 
 
 (defn calculate-total [surveys key]
@@ -100,6 +109,7 @@
       (let [query @(subscribe [::gql/query
                                {:queries [[:surveys
                                            [:survey/address
+                                            :survey/id
                                             :survey/total-votes
                                             [:survey/voter-votes {:voter @active-account}]
                                             [:survey/options [:option/id
@@ -113,9 +123,13 @@
                  :description "Description"}}
          [:div.home
           [:h2.title "MemeFactory Survey"]
-          [:div "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."]
+          [:p "Welcome to the Meme Factory Community Design Survey. Below are listed public polls which will decide the design and implementation of several aspects of the upcoming Meme Factory dApp, as well as the winners of the Community Design Contest entries."]
+          [:p "Participation requires a MetaMask or mycrypto.com-compatible wallet with an available district0x Network Token (DNT) balance, as well as enough Ether to cover any transaction costs." [:b "The DNT balance available for each vote is fixed based on the balance available at the beginning of each survey."]]
+          [:p "Upon conclusion of all votes, every vote cast in each survey will be rewarded with a proportion of the newly minted DANK, an ERC20 token crucial to the curation of content on Meme Factory. These DANK rewards will be sent " [:b "back to the exact address holding the voting DNT"] ", so be sure to plan accordingly."]
+          [:p "For more information, see our ansunouncement " [:a {:href "https://blog.district0x.io/meme-factory-community-surveys-839033f03c14" :target :_blank} "blog post"] "." [:br]
+           "For tutorials on voting, see the " [:a {:href "#" :target :_blank} "MetaMask"] " or " [:a {:href "#" :target :_blank} "Ledger Tutorials"]]
           [total-stats
-           {:surveys (:surveys query)}]
+           {:surveys (print.foo/look (:surveys query))}]
           [:div.surveys
            (doall
              (for [[i s] (medley/indexed surveys)]

@@ -26,35 +26,39 @@
 
 (defn cast-vote-event [_ {:keys [:args :address] :as e}]
   (log/info "Cast Vote Event" {:args args} ::cast-vote-event)
-  (try-catch
-    (let [{:keys [:voter :option :stake]} args]
+  (try-catchd
+    (let [{:keys [:voter :option :stake :survey-id]} args]
       (db/reset-votes! {:vote/voter voter
-                        :vote/survey address})
+                        :vote/survey address
+                        :vote/survey-id (bn/number survey-id)})
       (db/insert-vote! {:vote/voter voter
                         :vote/option (bn/number option)
                         :vote/stake (bn/number stake)
-                        :vote/survey address}))))
+                        :vote/survey address
+                        :vote/survey-id (bn/number survey-id)}))))
 
 
 
 (defn start [opts]
   (when-not (web3/connected? @web3)
     (throw (js/Error. "Can't connect to Ethereum node")))
-  (let [surveys (map :survey/address (filter :survey/address surveys))]
+  (let [surveys (filter :survey/address surveys)]
     (doall
       (concat
-        (map (fn [survey-addr]
-               (survey/cast-vote-event [:survey survey-addr]
-                                       {}
+        (map (fn [{:keys [:survey/address :survey/id]}]
+               (survey/cast-vote-event address
+                                       {:survey-id id}
                                        "latest"
                                        cast-vote-event))
              surveys)
-        (map (fn [survey-addr]
-               (-> (survey/cast-vote-event [:survey survey-addr] {} {:from-block 0 :to-block "latest"})
+        (map (fn [{:keys [:survey/address :survey/id]}]
+               (-> (survey/cast-vote-event
+                     address
+                     {:survey-id id}
+                     {:from-block 0 :to-block "latest"})
                  (replay-past-events cast-vote-event)))
              surveys)))))
 
 (defn stop [syncer]
   (doseq [filter (remove nil? @syncer)]
     (web3-eth/stop-watching! filter (fn [err]))))
-

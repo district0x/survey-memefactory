@@ -26,7 +26,7 @@
 
 (defn cast-vote-event [_ {:keys [:args :address] :as e}]
   (log/info "Cast Vote Event" {:args args} ::cast-vote-event)
-  (try-catchd
+  (try-catch
     (let [{:keys [:voter :option :stake :survey-id]} args]
       (db/reset-votes! {:vote/voter voter
                         :vote/survey address

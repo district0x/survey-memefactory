@@ -79,6 +79,9 @@
         (:survey/address args)]
        "Not deployed yet")]]
    (when (:survey/address args)
+     [:div.survey-address
+      [:span.label "Survey ID: " (:survey/id args)]])
+   (when (:survey/address args)
      [options args])])
 
 

@@ -2,8 +2,8 @@
   (:require [cljs-time.core :as t]))
 
 (def surveys
-  [{:survey/address "0x5679f3908ea3eece5c33f8c7e183cc81e87963a0"
-    :survey/id 2
+  [{:survey/address "0x582ccc8fecacb8cbc3ad280f32194022a64f9ca3"
+    :survey/id 0
     :survey/title "Meme Format"
     :survey/description "The purpose of this vote is to pick a “format” standard for each Meme. Given the technical and visual design constraints we’re working with, we have a few possible choices for aspect ratio for Memes themselves, based on popular resolutions:"
     :survey/start-date (t/date-time 2018 8 13)

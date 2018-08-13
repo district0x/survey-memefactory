@@ -66,11 +66,11 @@
     (format/format-date (:survey/end-date args))]
    [:div.total-votes
     [:span.label "Total Votes: "]
-    (format/format-token (web3/from-wei total-votes :ether)
+    (format/format-token (bn/number (web3/from-wei total-votes :ether))
                          {:token "DNT"})]
    [:div.total-votes
     [:span.label "You Voted: "]
-    (format/format-token (web3/from-wei voter-votes :ether)
+    (format/format-token (bn/number (web3/from-wei voter-votes :ether))
                          {:token "DNT"})
     " (" (format/format-percentage voter-votes total-votes) ")"]
    [:div.survey-address

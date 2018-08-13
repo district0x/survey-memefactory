@@ -12,7 +12,8 @@
     [district.ui.web3-tx-id.subs :as tx-id-subs]
     [survey-memefactory.ui.components.app-layout :refer [app-layout]]
     [cljs-time.core :as t]
-    [print.foo :include-macros true]))
+    [print.foo :include-macros true]
+    [bignumber.core :as bn]))
 
 (defn options [{:keys [:survey/options :survey/end-date :survey/address] :as args}]
   [:div.options
@@ -48,7 +49,7 @@
            [:div.bar [:span.bar-index
                       {:style {:width percentage}}]]
            [:div.percentage
-            (format/format-number (web3/from-wei total-votes :ether)
+            (format/format-number (bn/number (web3/from-wei total-votes :ether))
                                   {:max-fraction-digits 2})
             " (" percentage ")"]]])))])
 

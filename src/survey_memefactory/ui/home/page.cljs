@@ -48,7 +48,8 @@
            [:div.bar [:span.bar-index
                       {:style {:width percentage}}]]
            [:div.percentage
-            (format/format-number (web3/from-wei total-votes :ether))
+            (format/format-number (web3/from-wei total-votes :ether)
+                                  {:max-fraction-digits 2})
             " (" percentage ")"]]])))])
 
 

@@ -100,8 +100,8 @@
         voter-votes (calculate-total surveys :survey/voter-votes)
         percentage (format/format-percentage voter-votes total-votes)]
     [:div.total-stats
-     [:div "Total Votes: " (format/format-token total-votes {:token "DNT"})]
-     [:div "You Voted: " (format/format-token voter-votes {:token "DNT"})]
+     [:div "Total Votes: " (format/format-token (bn/number total-votes) {:token "DNT"})]
+     [:div "You Voted: " (format/format-token (bn/number voter-votes) {:token "DNT"})]
      [:div "You are eligible to obtain "
       (format/format-token (* (/ voter-votes total-votes) 1000000000)
                            {:token "DANK"})

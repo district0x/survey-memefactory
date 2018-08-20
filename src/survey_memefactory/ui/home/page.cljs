@@ -119,6 +119,7 @@
                                             [:survey/voter-votes {:voter @active-account}]
                                             [:survey/options [:option/id
                                                               :option/text
+                                                              :option/image
                                                               :option/total-votes
                                                               [:option/voter-voted?
                                                                {:voter @active-account}]]]]]]}

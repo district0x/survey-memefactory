@@ -42,19 +42,22 @@
 (defn start [opts]
   (when-not (web3/connected? @web3)
     (throw (js/Error. "Can't connect to Ethereum node")))
-  (let [surveys (filter :survey/address surveys)]
+  (let [surveys (->> surveys
+                  (map :survey/address)
+                  (remove nil?)
+                  distinct)]
     (doall
       (concat
-        (map (fn [{:keys [:survey/address :survey/id]}]
+        (map (fn [address]
                (survey/cast-vote-event address
-                                       {:survey-id id}
+                                       {}
                                        "latest"
                                        cast-vote-event))
              surveys)
-        (map (fn [{:keys [:survey/address :survey/id]}]
+        (map (fn [address]
                (-> (survey/cast-vote-event
                      address
-                     {:survey-id id}
+                     {}
                      {:from-block 0 :to-block "latest"})
                  (replay-past-events cast-vote-event)))
              surveys)))))

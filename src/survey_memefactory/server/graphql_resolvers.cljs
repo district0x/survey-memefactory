@@ -45,7 +45,7 @@
 
 (defn survey-options [{:keys [:survey/address] :as args} {:keys [:voter]}]
   (if (web3-core/address? address)
-    (->> (get-in surveys-map [address (:survey/id args) :survey/options])
+    (->> (print.foo/look (get-in (print.foo/look surveys-map) [address (:survey/id args) :survey/options]))
       (map (fn [{:keys [:option/id] :as option}]
              (merge
                option

@@ -69,11 +69,12 @@
 (def insert-vote! (create-insert-fn :votes votes-column-names {:insert-or-replace? true}))
 
 
-(defn reset-votes! [{:keys [:vote/voter :vote/survey]}]
+(defn reset-votes! [{:keys [:vote/voter :vote/survey :vote/survey-id]}]
   (db/run! {:delete-from :votes
             :where [:and
                     [:= :vote/voter voter]
-                    [:= :vote/survey survey]]}))
+                    [:= :vote/survey survey]
+                    [:= :vote/survey-id survey-id]]}))
 
 
 #_ (defn reset-vote! [{:keys [:vote/voter :vote/survey :vote/option :vote/stake]}]

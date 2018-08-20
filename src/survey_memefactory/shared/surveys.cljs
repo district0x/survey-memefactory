@@ -22,7 +22,7 @@
                      {:option/id 2 :option/image "theme2.jpg"}
                      {:option/id 3 :option/image "theme3.jpg"}
                      {:option/id 4 :option/image "theme4.jpg"}
-                     {:option/id 5 :option/image "theme4.jpg"}
+                     {:option/id 5 :option/image "theme5.jpg"}
                      {:option/id 6 :option/image "theme6.jpg"}]}
    {:survey/address nil
     :survey/title "Homepage Lists"

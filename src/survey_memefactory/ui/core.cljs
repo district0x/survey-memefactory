@@ -25,7 +25,7 @@
     [print.foo :include-macros true]
     [re-frame.core :refer [dispatch]]))
 
-(def debug? ^boolean js/goog.DEBUG)
+(def debug? false)
 
 (defn dev-setup []
   (when debug?

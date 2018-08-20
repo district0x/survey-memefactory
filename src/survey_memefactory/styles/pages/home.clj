@@ -62,10 +62,14 @@
     {:margin-top (em 2)}
     [:.title {:font-weight :bold}]
     [:.options {:margin-top (px 20)}]
-    [:.option]
+    [:.option.image
+     {:width "80%"
+      :height "auto"
+      :margin-top (px 10)}]
     [:.option-row
      {:display :flex
-      :justify-content :space-between}]
+      :justify-content :space-between
+      :align-items :center}]
     [:button.vote
      (font :bungee)
      {:border-radius "1em"

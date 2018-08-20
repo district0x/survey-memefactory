@@ -28,7 +28,7 @@
           [:div.option-row
            (if text
              [:div.option.text id ". " text]
-             [:div.option.image image])
+             [:img.option.image {:src (str "./assets/images/" image)}])
            (if (t/after? end-date (t/now))
              [:button.vote
               {:on-click (fn []

@@ -42,7 +42,6 @@
     <orderEntry type="library" name="Leiningen: cljsjs/react-dom-server:16.3.0-1" level="project" />
     <orderEntry type="library" name="Leiningen: cljsjs/react-dom:16.3.0-1" level="project" />
     <orderEntry type="library" name="Leiningen: cljsjs/react-infinite:0.13.0-0" level="project" />
-    <orderEntry type="library" name="Leiningen: cljsjs/react-with-addons:15.2.0-0" level="project" />
     <orderEntry type="library" name="Leiningen: cljsjs/react:16.3.0-1" level="project" />
     <orderEntry type="library" name="Leiningen: cljsjs/semantic-ui-react:0.76.0-0" level="project" />
     <orderEntry type="library" name="Leiningen: cljsjs/web3:0.19.0-0" level="project" />
@@ -88,7 +87,7 @@
     <orderEntry type="library" name="Leiningen: district0x/cljs-solidity-sha3:1.0.0" level="project" />
     <orderEntry type="library" name="Leiningen: district0x/district-cljs-utils:1.0.3" level="project" />
     <orderEntry type="library" name="Leiningen: district0x/district-encryption:1.0.0" level="project" />
-    <orderEntry type="library" name="Leiningen: district0x/district-format:1.0.2" level="project" />
+    <orderEntry type="library" name="Leiningen: district0x/district-format:1.0.3" level="project" />
     <orderEntry type="library" name="Leiningen: district0x/district-graphql-utils:1.0.5" level="project" />
     <orderEntry type="library" name="Leiningen: district0x/district-server-config:1.0.1" level="project" />
     <orderEntry type="library" name="Leiningen: district0x/district-server-db:1.0.2" level="project" />
@@ -106,7 +105,7 @@
     <orderEntry type="library" name="Leiningen: district0x/district-ui-notification:1.0.1" level="project" />
     <orderEntry type="library" name="Leiningen: district0x/district-ui-now:1.0.2" level="project" />
     <orderEntry type="library" name="Leiningen: district0x/district-ui-reagent-render:1.0.1" level="project" />
-    <orderEntry type="library" name="Leiningen: district0x/district-ui-router-google-analytics:1.0.0" level="project" />
+    <orderEntry type="library" name="Leiningen: district0x/district-ui-router-google-analytics:1.0.1" level="project" />
     <orderEntry type="library" name="Leiningen: district0x/district-ui-router:1.0.3" level="project" />
     <orderEntry type="library" name="Leiningen: district0x/district-ui-smart-contracts:1.0.5" level="project" />
     <orderEntry type="library" name="Leiningen: district0x/district-ui-web3-account-balances:1.0.1" level="project" />

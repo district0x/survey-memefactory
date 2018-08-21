@@ -35,7 +35,8 @@
                         :vote/option (bn/number option)
                         :vote/stake (bn/number stake)
                         :vote/survey address
-                        :vote/survey-id (bn/number survey-id)}))))
+                        :vote/survey-id (bn/number survey-id)})
+      (print.foo/look (district.server.db/all {:select [:*] :from [:votes]})))))
 
 
 

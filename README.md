@@ -15,7 +15,7 @@ Start UI:
 ```bash
 lein repl
 (start-ui!)
-# go to http://localhost:8555/
+# go to http://localhost:4235/
 ```
 
 Compile styles: 

@@ -23,7 +23,7 @@
    [:vote/survey-id :unsigned :integer not-nil]
    [:vote/option :unsigned :integer not-nil]
    [:vote/stake :unsigned :BIG :INT not-nil]
-   [(sql/call :primary-key :vote/voter :vote/survey :vote/option)]])
+   [(sql/call :primary-key :vote/voter :vote/survey :vote/survey-id :vote/option)]])
 
 (def votes-column-names (filter keyword? (map first votes-columns)))
 

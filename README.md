@@ -1,14 +1,24 @@
 # survey-memefactory
 
-A Clojure library designed to ... well, that part is up to you.
+[survey.memefactory.io](https://survey.memefactory.io/)
 
-## Usage
+## Development
+Start server: 
+```bash
+ganache-cli -p 8549
+lein repl
+(start-server!)
+node dev-server/memefactory.js
+```
 
-FIXME
+Start UI:
+```bash
+lein repl
+(start-ui!)
+# go to http://localhost:8555/
+```
 
-## License
-
-Copyright © 2018 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Compile styles: 
+```bash
+lein garden auto
+```

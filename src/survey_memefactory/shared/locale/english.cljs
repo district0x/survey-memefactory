@@ -50,7 +50,7 @@
    "For tutorials on voting, see the "
    [:a {:href "https://www.youtube.com/watch?v=9hBtPY6L_lw" :target :_blank} "MetaMask"]
    " or "
-   [:a {:href "https://www.youtube.com/watch?v=8e6rDUxxLjg" :target :_blank} "MyCrypto Tutorials"]])
+   [:a {:href "https://www.youtube.com/watch?v=ZNUHNnDg2f8" :target :_blank} "MyCrypto Tutorials"]])
 
 
 (defmethod get-locale*

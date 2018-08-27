@@ -54,6 +54,12 @@
 
 
 (defmethod get-locale*
+  [:en :welcome-paragraph-5] [_ _ _]
+  [:p "You can find survey contract ABI "
+   [:a {:href "./contracts/build/Survey.abi" :target :_blank} "here."]])
+
+
+(defmethod get-locale*
   [:en :total-votes] [_ _ _]
   "Total Votes: ")
 

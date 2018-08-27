@@ -146,7 +146,8 @@
           (locale :welcome-paragraph-1)
           (locale :welcome-paragraph-2)
           (locale :welcome-paragraph-3)
-          (locale :welcome-paragraph-4)          
+          (locale :welcome-paragraph-4)
+          (locale :welcome-paragraph-5)
           [total-stats
            {:locale locale
             :surveys (:surveys query)}]

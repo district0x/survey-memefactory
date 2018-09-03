@@ -36,11 +36,54 @@
                      {:option/id 4 :option/text "Fresh Submissions - The most recent submissions to the Dank Registry"}
                      {:option/id 5 :option/text "Active Challenges -  Dank Registry challenges ending soonest"}
                      {:option/id 6 :option/text "Trending Votes - Challenges with the largest total vote participation in the past 24hrs"}]}
-   {:survey/address nil
+   {:survey/address "0x582ccc8fecacb8cbc3ad280f32194022a64f9ca3"
+    :survey/id 4
     :survey/title "Logo of Token"
     :survey/description "The DANK token is a newly issued, standard ERC20 token used to power the deposit, vote, and challenge functions of the Dank Registry. Like any token, DANK needs a logo to be easily recognizable in wallets and clients. We accepted community designs for this logo, and included a few of our own below as well:"
     :survey/start-date (t/date-time 2018 9 3)
     :survey/end-date (t/plus (t/date-time 2018 9 3) (t/weeks 1))
+    :survey/options [{:option/id 1 :option/image "dank1.png"}
+                     {:option/id 2 :option/image "dank2.png"}
+                     {:option/id 3 :option/image "dank3.svg"}
+                     {:option/id 4 :option/image "dank4.png"}
+                     {:option/id 5 :option/image "dank5.png"}
+                     {:option/id 6 :option/image "dank6.png"}
+                     {:option/id 7 :option/image "dank7.svg"}
+                     {:option/id 8 :option/image "dank8.png"}
+                     {:option/id 9 :option/image "dank9.png"}
+                     {:option/id 10 :option/image "dank10.svg"}
+                     {:option/id 11 :option/image "dank11.svg"}
+                     {:option/id 12 :option/image "dank12.svg"}
+                     {:option/id 13 :option/image "dank13.svg"}
+                     {:option/id 14 :option/image "dank14.svg"}
+                     {:option/id 15 :option/image "dank15.svg"}
+                     {:option/id 16 :option/image "dank16.svg"}
+                     {:option/id 17 :option/image "dank17.svg"}
+                     {:option/id 18 :option/image "dank18.svg"}
+                     {:option/id 19 :option/image "dank19.svg"}
+                     {:option/id 20 :option/image "dank20.svg"}
+                     {:option/id 21 :option/image "dank21.svg"}
+                     {:option/id 22 :option/image "dank22.svg"}
+                     {:option/id 23 :option/image "dank23.svg"}
+                     {:option/id 24 :option/image "dank24.svg"}
+                     {:option/id 25 :option/image "dank25.svg"}
+                     {:option/id 26 :option/image "dank26.svg"}
+                     {:option/id 27 :option/image "dank27.svg"}
+                     {:option/id 28 :option/image "dank28.svg"}
+                     {:option/id 29 :option/image "dank29.svg"}
+                     {:option/id 30 :option/image "dank30.svg"}
+                     {:option/id 31 :option/image "dank31.svg"}
+                     {:option/id 32 :option/image "dank32.png"}
+                     {:option/id 33 :option/image "dank33.png"}
+                     {:option/id 34 :option/image "dank34.png"}
+                     {:option/id 35 :option/image "dank35.png"}
+                     {:option/id 36 :option/image "dank36.svg"}
+                     {:option/id 37 :option/image "dank37.svg"}]}
+   {:survey/address nil
+    :survey/title "Back-of-meme Design"
+    :survey/description "Each meme on Meme Factory will have its own completely unique artwork covering the “front” of the collectable. When users on the dApp click the meme it will flip over, revealing a back-of-the-card design which will be shared across all collectibles on the site. The back will also feature an overlay of all the metadata related to that meme. Below we’ve listed some community-made designs as well as our own:"
+    :survey/start-date (t/date-time 2018 9 10)
+    :survey/end-date (t/plus (t/date-time 2018 9 10) (t/weeks 1))
     :survey/options [{:option/id 1 :option/text "Option A"}
                      {:option/id 2 :option/text "Option B"}
                      {:option/id 3 :option/text "Option C"}]}])

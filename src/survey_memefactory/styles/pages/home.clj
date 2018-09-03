@@ -65,7 +65,9 @@
     [:.option.image
      {:width "80%"
       :height "auto"
-      :margin-top (px 10)}]
+      :margin-top (px 10)}
+     [:&.survey-id-4
+      {:width "40%"}]]
     [:.option-row
      {:display :flex
       :justify-content :space-between

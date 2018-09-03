@@ -39,7 +39,8 @@
          [:div.option-row
           (if text
             [:div.option.text id ". " text]
-            [:img.option.image {:src (str "./assets/images/" image)}])
+            [:img.option.image {:src (str "./assets/images/" image)
+                                :class (str "survey-id-" (:survey/id args))}])
           (if (t/after? end-date (t/now))
             [:button.vote
              {:on-click (fn []

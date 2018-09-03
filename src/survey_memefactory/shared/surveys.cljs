@@ -57,7 +57,7 @@
                      {:option/id 13 :option/image "dank13.svg"}
                      {:option/id 14 :option/image "dank14.svg"}
                      {:option/id 15 :option/image "dank15.svg"}
-                     {:option/id 16 :option/image "dank16.svg"}
+                     {:option/id 16 :option/image "dank16.png"}
                      {:option/id 17 :option/image "dank17.svg"}
                      {:option/id 18 :option/image "dank18.svg"}
                      {:option/id 19 :option/image "dank19.svg"}

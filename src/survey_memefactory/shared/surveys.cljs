@@ -79,11 +79,29 @@
                      {:option/id 35 :option/image "dank35.png"}
                      {:option/id 36 :option/image "dank36.svg"}
                      {:option/id 37 :option/image "dank37.svg"}]}
-   {:survey/address nil
+   {:survey/address "0x582ccc8fecacb8cbc3ad280f32194022a64f9ca3"
+    :survey/id 5
     :survey/title "Back-of-meme Design"
-    :survey/description "Each meme on Meme Factory will have its own completely unique artwork covering the “front” of the collectable. When users on the dApp click the meme it will flip over, revealing a back-of-the-card design which will be shared across all collectibles on the site. The back will also feature an overlay of all the metadata related to that meme. Below we’ve listed some community-made designs as well as our own:"
+    :survey/description "Each meme on Meme Factory will have its own completely unique artwork covering the “front” of the collectable. When users on the dApp click the meme it will flip over, revealing a back-of-the-card design which will be shared across all collectibles on the site. The back will also feature an overlay of all the metadata related to that meme. Below we’ve displayed some community made designs, as well as our own. \n\nNOTE: Some submissions include the meme stats and button overlays. We will be incorporating these overlays into the winning design ourselves. Pick your favorite card design, not button!"
     :survey/start-date (t/date-time 2018 9 10)
     :survey/end-date (t/plus (t/date-time 2018 9 10) (t/weeks 1))
+    :survey/options [{:option/id 1 :option/image "back1.png"}
+                     {:option/id 2 :option/image "back2.jpeg"}
+                     {:option/id 3 :option/image "back3.svg"}
+                     {:option/id 4 :option/image "back4.svg"}
+                     {:option/id 5 :option/image "back5.svg"}
+                     {:option/id 6 :option/image "back6.png"}
+                     {:option/id 7 :option/image "back7.svg"}
+                     {:option/id 8 :option/image "back8.png"}
+                     {:option/id 9 :option/image "back9.svg"}
+                     {:option/id 10 :option/image "back10.png"}
+                     {:option/id 11 :option/image "back11.png"}
+                     {:option/id 12 :option/image "back12.svg"}]}
+   {:survey/address nil
+    :survey/title "First Memes"
+    :survey/description "The Meme Factory dApp serves the entire marketplace process for rare collectibles - from creation of the content to its inclusion to its final sale. In order to present a fully working product on launch day, it’s necessary for the system to already have memes available for sale and submissions available for challenge. \n\nHowever, the first few collectibles issued are likely to carry significant value for the novelty of being “first”. So we hosted an open competition to allow our community to submit Memes ahead of time. The winning submissions will be given an opportunity to mint their respective memes in order of ranking. These memes will be available for sale on the day of Meme Factory’s launch.\n"
+    :survey/start-date (t/date-time 2018 9 17)
+    :survey/end-date (t/plus (t/date-time 2018 9 17) (t/weeks 1))
     :survey/options [{:option/id 1 :option/text "Option A"}
                      {:option/id 2 :option/text "Option B"}
                      {:option/id 3 :option/text "Option C"}]}])

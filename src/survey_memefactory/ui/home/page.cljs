@@ -115,7 +115,7 @@
      [:div (locale :total-votes) (format/format-token (bn/number total-votes) {:token "DNT"})]
      [:div (locale :you-voted) (format/format-token (bn/number voter-votes) {:token "DNT"})]
      [:div (locale :you-are-eligible)
-      (format/format-token (* (/ voter-votes total-votes) 1000000000)
+      (format/format-token (* (/ voter-votes total-votes) 800000000)
                            {:token "DANK"})
       " (" percentage ")"]]))
 

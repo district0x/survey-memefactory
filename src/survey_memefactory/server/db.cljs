@@ -85,3 +85,85 @@
                     [:= :vote/option option]
                     [:= :vote/stake stake]]}))
 
+(defn all-unique-voters-per-survey
+  "Returns a set of all the unique voters for a given survey."
+  [survey-address survey-id]
+  (set
+   (db/all
+    {:select [:vote/voter] :from [:votes]
+     :where [:and
+             [:= :vote/survey survey-address]
+             [:= :vote/survey-id survey-id]]})))
+
+(defn all-unique-voters
+  "Returns a set of all the unique voters across a collection of surveys."
+  [survey-address survey-ids]
+  (set
+   (db/all
+    {:select [:vote/voter] :from [:votes]
+     :where [:and
+             [:= :vote/survey survey-address]
+             [:in :vote/survey-id survey-ids]]})))
+
+(defn total-staked-per-voter
+  "Returns the amount a voter has staked across a collection of surveys."
+  [survey-address survey-ids voter]
+  (reduce
+   (fn [stake survey-id]
+     (+
+      stake
+      (:vote/stake (db/get
+                    {:select [:vote/stake]
+                     :from [:votes]
+                     :where [:and
+                             [:= :vote/survey survey-address]
+                             [:= :vote/survey-id survey-id]
+                             [:= :vote/voter (:vote/voter voter)]]}))))
+   survey-ids))
+
+(defn total-staked
+  "Returns the ammount staked for all the voters."
+  [survey-address survey-ids]
+  (reduce
+    +
+    (map :vote/stake
+         (db/all {:select [:vote/stake] :from [:votes]
+                  :where [:and
+                          [:= :vote/survey survey-address]
+                          [:in :vote/survey-id survey-ids]]}))))
+
+(defn percentage-staked
+  "Returns the percentage staked for a particular voter."
+  [survey-address survey-ids voter]
+  (->
+   (/
+    (total-staked-per-voter survey-address survey-ids voter)
+    (total-staked survey-address survey-ids))
+   (* 100)))
+
+(defn percentage-dank
+  "For a given collection of survey-ids and the total dank allocated
+  returns the dank for that particular voter based upon the percentage
+  they staked."
+  [survey-address survey-ids total-dank voter]
+  (* total-dank
+     (percentage-staked survey-address survey-ids voter)))
+
+(defn compute-dank-allotment
+  "For a given collection of survey-ids at a survey-address compute the
+  dank allotment for each voter based upon the total dank in the pool
+  and the percentage of DNT each voter staked across all of the voting
+  rounds."
+  [survey-address survey-ids total-dank]
+  (let [voters (all-unique-voters survey-address survey-ids)]
+    (map (juxt
+        :vote/voter
+        (partial percentage-dank survey-address survey-ids total-dank))
+       voters)))
+
+(comment
+  ;; First group of surveys, we skipped survey 1
+  ;; 8M Dank to be divided up amongst the voters
+  (compute-dank-allotment "0x582ccc8fecacb8cbc3ad280f32194022a64f9ca3"
+                          [0 2 3 4 5 6]
+                          8000000))

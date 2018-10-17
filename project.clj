@@ -42,6 +42,7 @@
                  [district0x/district-ui-web3-tx-id "1.0.1"]
                  [district0x/district-web3-utils "1.0.2"]
                  [district0x/district-time "1.0.0"]
+                 [district0x/error-handling "1.0.0-1"]
                  [medley "1.0.0"]
                  [mount "0.1.12"]
                  [org.clojure/clojurescript "1.10.238"]
@@ -55,6 +56,7 @@
   :plugins [[lein-auto "0.1.2"]
             [lein-cljsbuild "1.1.7"]
             [lein-figwheel "0.5.16"]
+            [lein-solc "1.0.1-1"]
             [lein-shell "0.5.0"]
             [lein-npm "0.6.2"]
             [lein-pdo "0.1.1"]
@@ -72,6 +74,13 @@
                        [ethereumjs-wallet "0.6.0"]
                        [ws "4.0.0"]]}
 
+  :solc {:src-path "resources/public/contracts/src"
+         :build-path "resources/public/contracts/build"
+         :solc-err-only true
+         :verbose false
+         :wc true
+         :contracts :all}
+
   :source-paths ["src"]
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target" "dev-server"]
@@ -88,7 +97,7 @@
 
   :figwheel {:server-port 4235
              :css-dirs ["resources/public/css"]
-             :repl-eval-timeout 30000}
+             :repl-eval-timeout 120000}
 
   :profiles {:dev {:dependencies [[org.clojure/clojure "1.9.0"]
                                   [binaryage/devtools "0.9.9"]
@@ -146,5 +155,5 @@
                                    :closure-defines {goog.DEBUG false}
                                    :pretty-print false
                                    :pseudo-names false}}]}
-  
+
   )
